@@ -6,6 +6,15 @@ import matplotlib.pyplot as plt
 cap = cv2.VideoCapture(0)      #a video capture object 
                                #it takes argument as file name or device index[0 for default]
 
+# Define the codec and create VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+
+    #arguments for VideoWriter object:
+    # name of file to be saved
+    #fourcc codec format
+    #frames per second
+    #frame resolution
+out = cv2.VideoWriter('sample.mp4' , fourcc ,20 ,  (640,480))   
 
  
 while(cap.isOpened()):        #if cap is passing the vieo OR just passs 'True'
@@ -16,6 +25,10 @@ while(cap.isOpened()):        #if cap is passing the vieo OR just passs 'True'
         print(cap.get(cv2.CAP_PROP_FRAME_WIDTH))            #get gives certain prooperties of frame
         print(cap.get(4))                               #can pass name of property or number like 4 give frame height
     
+
+        #write the frame
+        out.write(frame)
+
         #cvtColor  (convert color)
         gray  = cv2.cvtColor(frame , cv2.COLOR_BGR2GRAY)    #convert BGR to gray
         cv2.imshow('frame' , gray)
@@ -25,4 +38,5 @@ while(cap.isOpened()):        #if cap is passing the vieo OR just passs 'True'
             
 
 cap.release()
+out.release()
 cv2.destroyAllWindows()        
