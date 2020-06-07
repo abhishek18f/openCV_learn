@@ -29,7 +29,7 @@ def crop(event , x , y , flags , params ):
 
 
 #img = np.zeros((512,512,3) , np.uint8) 
-img = cv2.imread('temp.jpg',0)
+img = cv2.imread('temp.jpg',1)
 img2 = img.copy()  
 cv2.namedWindow('image')
 cv2.setMouseCallback('image' , crop)
