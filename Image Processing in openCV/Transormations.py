@@ -16,8 +16,8 @@ import cv2
 img  = cv2.imread('temp.jpg')
 img1 = cv2.resize(img, None , None , 0.5 , 0.5 ,  cv2.INTER_AREA  )         #shrink height and width by 0.5
 cv2.imshow('img' ,img)
-#cv2.imshow('img1' , img1)
-#cv2.waitKey(0)
+# cv2.imshow('img1' , img1)
+# cv2.waitKey(0)
 
 #TRANSLATION
 #   The function warpAffine transforms the source image using the specified matrix:
@@ -28,8 +28,20 @@ M = np.array([[1 , 0 , 80 ] , [0, 1 , 40]] , np.float32)    #Transformation matr
 #Third argument of the cv2.warpAffine() function is the size of the output image, 
 #which should be in the form of (width, height). Remember width = number of columns, and height = number of rows.
 img2 = cv2.warpAffine(img , M , (cols , rows))
-cv2.imshow('img2' , img2)
+# cv2.imshow('img2' , img2)
+# cv2.waitKey(0)
+
+#ROTATION
+#to get rotation matrix we use getRotationMatrix2D function
+#retval	=	cv.getRotationMatrix2D(	center, angle, scale	)
+rotM = cv2.getRotationMatrix2D((cols/3 , 2*rows/3) , 45 , 1)
+img3 = cv2.warpAffine(img , rotM, (cols , rows))
+# print(rotM)
+# [[   0.70710678    0.70710678 -403.67532368]
+#  [  -0.70710678    0.70710678  465.44155877]]
+cv2.imshow('img3' , img3)
 cv2.waitKey(0)
+
 
 
 
