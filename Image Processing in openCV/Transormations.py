@@ -42,6 +42,11 @@ img3 = cv2.warpAffine(img , rotM, (cols , rows))
 cv2.imshow('img3' , img3)
 cv2.waitKey(0)
 
-
-
+#PERSPECTIVE TRANSFORMATION
+#For perspective transformation, you need a 3x3 transformation matrix. 
+#Straight lines will remain straight even after the transformation. 
+#To find this transformation matrix, you need 4 points on the input image and corresponding points on the output image.
+# Among these 4 points, 3 of them should not be collinear. 
+#Then the transformation matrix can be found by the function cv.getPerspectiveTransform. 
+#Then apply cv.warpPerspective with this 3x3 transformation matrix.
 
