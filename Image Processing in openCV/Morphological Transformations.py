@@ -28,22 +28,44 @@ while(cap.isOpened()):
     kernel = np.ones((5,5) , np.uint8)
     #erosion basically erodes the noise and boundary points or outliners
     #kernal is traversed over image and it converts middle point to 1 if all points inside the kernel is 1(or of same color) otherwise zero
+    #used to separate connected objects
     erosion = cv2.erode(mask , kernel)
 
     #DILATION
     #it basically amplifies outliners/noises
     #kernal is traversed over image and it converts middle point to 1 if atleast one point inside the kernel is 1(or of same color) otherwise zero
+    #used to disconnect connected objects
     dilation = cv2.dilate(mask , kernel)
 
     #OPENING
+    #basically EROSION FOLLOWED BY DILATION
+    #opening basically reduces the false positives in the background
+    open = cv2.morphologyEx(mask , cv2.MORPH_OPEN , kernel)
 
-    res_erode = cv2.bitwise_and(frame , frame , mask = dilation)
-    cv2.imshow('frame' , frame)
+    #CLOSING
+    #basically DIALATION FOLLOWED BY EROSION
+    #opening basically reduces the false negatives in the foreground
+    close = cv2.morphologyEx(mask ,cv2.MORPH_CLOSE, kernel)
+
+    #MORPHOLOGICAL GRADIENT
+    #It is the difference between dilation and erosion of an image.
+    gradient = cv2.morphologyEx(mask , cv2.MORPH_GRADIENT , kernel)
+
+    #TOP HAT
+    #It is the difference between input image and Opening of the image. Below example is done for a 9x9 kernel. 
+    tophat = cv2.morphologyEx(mask , cv2.MORPH_TOPHAT , kernel)
+
+    #BLACK HAT
+    #It is the difference between input image and Opening of the image. Below example is done for a 9x9 kernel. 
+    blackhat = cv2.morphologyEx(mask , cv2.MORPH_BLACKHAT , kernel)
+    res_erode = cv2.bitwise_and(frame , frame , mask = close)
+    # cv2.imshow('frame' , frame)
     cv2.imshow('mask' , mask)
-    cv2.imshow('erosion' , erosion)
-    cv2.imshow('dilation' , dilation)
-    cv2.imshow('res_erode' , res_erode)
-    cv2.imshow('masked image', res)
+    # cv2.imshow('erosion' , erosion)
+    cv2.imshow('tophat' , tophat)
+    cv2.imshow('open' , open)
+    # cv2.imshow('res_erode' , res_erode)
+    # cv2.imshow('masked image', res)
     k = cv2.waitKey(5) & 0xFF
     if k == ord('q'): 
         break
