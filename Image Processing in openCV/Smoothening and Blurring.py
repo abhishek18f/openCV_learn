@@ -13,11 +13,18 @@ kernel = (1/25)*np.ones((5,5) , dtype=np.float32)
 img1 = cv2.filter2D(img, -1 , kernel)
 
 
+#KERNEL SIZE SHOULD BE POSITIVE ODD INTEGER
 #GAUSSIAN 
 #it takes the weighted average of the neighbouring space pixels depending on the value of sigma
-
 gaussian = cv2.GaussianBlur(img , (5,5) , 500)
+
+#MEDIAN BLURRING
+#it takes the median of the neighbouring space pixels and replaces the middle pixel with it
+img2 = cv2.medianBlur(img, 5)
+
+
 cv2.imshow('img' , img)
 cv2.imshow('average' , img1 )
 cv2.imshow('gaussian' , gaussian )
+cv2.imshow('median' , img2 )
 cv2.waitKey(0)
