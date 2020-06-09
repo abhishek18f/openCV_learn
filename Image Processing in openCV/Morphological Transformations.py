@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 # https://docs.opencv.org/trunk/d9/d61/tutorial_py_morphological_ops.html
-# 
+# http://homepages.inf.ed.ac.uk/rbf/HIPR2/erode.htm
 
 cap = cv2.VideoCapture(0)
 
